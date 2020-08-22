@@ -153,8 +153,8 @@
         $.getJSON('https://api.openweathermap.org/data/2.5/weather?q=goleta,ca,us&appid=d6ab8ffb3669711ae1d4b77eefdb7756&units=imperial', function(data) {
             var temp = data.main.temp;
             $('#gweather').append(`<p style='font-weight:normal;'>Temperature: ${temp}</p>`);
-            $('#gweather').append(`<p style='font-weight:normal;'>Conditions: ${data.weather[1].main}</p>`);
-            $('#gweather').append(`<p style='font-weight:normal;'>Conditions Description: ${data.weather[1].description}</p>`);
+            $('#gweather').append(`<p style='font-weight:normal;'>Conditions: ${data.weather[0].main}</p>`);
+            $('#gweather').append(`<p style='font-weight:normal;'>Conditions Description: ${data.weather[0].description}</p>`);
             $('#gweather').append(`<p style='font-weight:normal;'>Wind: ${data.wind.deg} degrees at ${data.wind.speed} mph.</p>`);
             $('#gweather').append(`<p style='font-weight:normal;'>Low Temperature: ${data.main.temp_min}</p>`);
             $('#gweather').append(`<p style='font-weight:normal;'>High Temperature: ${data.main.temp_max}</p>`);
