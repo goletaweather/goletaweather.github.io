@@ -1,1 +1,402 @@
+<!DOCTYPE html>
+<html>
 
+<head>
+    <meta charset="utf8">
+    <title>Goleta Weather</title>
+    <meta name="description" content="Weather for Goleta, California, United States, North America, Earth">
+    <meta name="keywords" content="weather for goleta, goleta weather, weather, goleta, goleta ca, goleta ca weather, weather goleta ca">
+    <meta name="author" content="The CirclR Team">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: white;
+            font: Verdana;
+            text-align: center;
+        }
+        
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+        
+        h1 {
+            font-size: 48px;
+        }
+        
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            text-decoration-color: white;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            left: 0;
+        }
+        
+        li {
+            float: left;
+        }
+        
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        
+        li a:hover:not(.active) {
+            background-color: rgb(122, 122, 122);
+        }
+        
+        .active {
+            background-color: #4CAF50;
+        }
+        
+        #navbar {
+            width: 14.3%
+        }
+        
+        #img1 {
+            width: 50%;
+            image-orientation: center;
+            border-radius: 12px;
+        }
+        
+        .dropdown {
+            float: left;
+            overflow: hidden;
+        }
+        
+        .dropdown .dropbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: white;
+            text-decoration-color: white;
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+        
+        .navbar a:hover,
+        .dropdown:hover .dropbtn {
+            background-color: rgb(122, 122, 122);
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: black;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        
+        .dropdown-content a {
+            float: none;
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: rgb(0, 49, 60);
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        #gweather {
+            font-size: 24px;
+        }
+        
+        .ghighlight {
+            background-color: #E8E8E8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1 style='font-size:54px;' id="top">Goleta Weather</h1>
+    <br><noscript><h2>Hello, it seems you have disabled JavaScript on your browser. Because of this, we can not show any data as we get our data via APIs or widgets. Please consider enabling JS for the website to work correctly.</h2></noscript><a class="weatherwidget-io"
+        href="https://forecast7.com/en/34d44n119d83/goleta/?unit=us" data-label_1="GOLETA" data-label_2="WEATHER" data-font="Roboto" data-theme="original">GOLETA WEATHER</a>
+    <script>
+        ! function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (!d.getElementById(id)) {
+                js = d.createElement(s);
+                js.id = id;
+                js.src = 'https://weatherwidget.io/js/widget.min.js';
+                fjs.parentNode.insertBefore(js, fjs);
+            }
+        }(document, 'script', 'weatherwidget-io-js');
+    </script>
+    <script>
+        //
+        $.getJSON('https://api.openweathermap.org/data/2.5/weather?q=goleta,ca,us&appid=d6ab8ffb3669711ae1d4b77eefdb7756&units=imperial', function(data) {
+            var temp = data.main.temp;
+            $('#gweather').append(`<p style='font-weight:normal;'>Temperature: ${temp}</p>`);
+            $('#gweather').append(`<p style='font-weight:normal;'>Conditions: ${data.weather[1].main}</p>`);
+            $('#gweather').append(`<p style='font-weight:normal;'>Conditions Description: ${data.weather[1].description}</p>`);
+            $('#gweather').append(`<p style='font-weight:normal;'>Wind: ${data.wind.deg} degrees at ${data.wind.speed} mph.</p>`);
+            $('#gweather').append(`<p style='font-weight:normal;'>Low Temperature: ${data.main.temp_min}</p>`);
+            $('#gweather').append(`<p style='font-weight:normal;'>High Temperature: ${data.main.temp_max}</p>`);
+            if (data.weather[0].main == 'haze' || data.weather[0].main == 'smoke' || data.weather[0].main == 'Haze' || data.weather[0].main == 'Smoke') {
+                $('#faviconn').attr('href', 'https://image.flaticon.com/icons/svg/803/803478.svg');
+            } else if (data.weather[0].main == 'clear' || data.weather[0].main == 'Clear') {
+                $('#faviconn').attr('href', 'https://image.flaticon.com/icons/svg/606/606795.svg');
+            } else if (data.weather[0].main == 'rainy' || data.weather[0].main == 'rain' || data.weather[0].main == 'Rain' || data.weather[0].main == 'Rainy') {
+                $('#faviconn').attr('href', 'https://image.flaticon.com/icons/svg/3314/3314005.svg');
+            } else if (data.weather[0].main == 'cloud' || data.weather[0].main == 'cloudy' || data.weather[0].main == 'Cloud' || data.weather[0].main == 'Cloudy' || data.weather[0].main == 'clouds' || data.weather[0].main == 'Clouds') {
+                $('#faviconn').attr('href', 'https://image.flaticon.com/icons/svg/3314/3314004.svg');
+            } else if (data.weather[0].main == 'snow' || data.weather[0].main == 'snowy' || data.weather[0].main == 'Snow' || data.weather[0].main == 'Snowy') {
+                $('#faviconn').attr('href', 'https://image.flaticon.com/icons/svg/3314/3314007.svg');
+            } else if (data.weather[0].main == 'hail' || data.weather[0].main == 'Hail') {
+                $('#faviconn').attr('href', 'https://image.flaticon.com/icons/svg/1714/1714783.svg');
+            } else if (data.weather[0].main == 'wind' || data.weather[0].main == 'windy' || data.weather[0].main == 'Wind' || data.weather[0].main == 'Windy') {
+                $('#faviconn').attr('href', 'https://image.flaticon.com/icons/svg/709/709763.svg');
+            } else if (data.weather[0].main == 'hot' || data.weather[0].main == 'Hot') {
+                $('#faviconn').attr('href', 'https://image.flaticon.com/icons/svg/2316/2316581.svg');
+            } else if (data.weather[0].main == 'cold' || data.weather[0].main == 'Cold') {
+                $('#faviconn').attr('href', 'https://image.flaticon.com/icons/svg/3313/3313905.svg');
+            } else {
+                $('#faviconn').attr('href', 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS9TW5TcJ-J3HDqRo0tFVyj33JHtPu8suoyOA&usqp=CAU');
+
+            }
+
+
+        })
+    </script>
+    <link id='faviconn' rel="shortcut icon" type="image/png" href="https://i.ibb.co/cNpbjT6/cold-1293305-1280.png" />
+    <br><br>
+    <div id='gweather'>
+        <h1>General Weather</h1>
+    </div>
+    <script>
+        $.getJSON('https://www.purpleair.com/json?show=16705', function(data) {
+                var dta = data.results[0].pm2_5_atm /*.pm1_0_atm*/
+                var AQI = aqiFromPM(dta);
+                var AQIDescription = getAQIDescription(AQI); //A short description of the provided AQI
+                var AQIMessage = getAQIMessage(AQI); // What the provided AQI means (a longer description)
+                $('#aquality').append(`<p style='font-weight:bold; font-size:32px;'>US EPA PM2.5 AQI: ${aqiFromPM(dta)}</p>`);
+                $('#aquality').append(`<p style='font-weight:normal;'>BPL: ${bplFromPM(AQI)}</p>`);
+                $('#aquality').append(`<p style='font-weight:normal;'>BPH: ${bphFromPM(AQI)}</p>`);
+                $('#aquality').append(`<p style='font-weight:normal;'>Short Description: ${AQIDescription}</p>`);
+                $('#aquality').append(`<p style='font-weight:${AQIMessage}</p>`);
+            })
+            /*$.getJSON('https://api.weather.gov/alerts/active?zone=PZZ130', function(data) {
+                    var allist = data.features.length;
+                    for (var i = 0; i++; i < allist) {
+
+                    }
+                })*/
+            /*fetch('https://www.purpleair.com/json?show=16705', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+            body: JSON.stringify {https://api.weather.gov/alerts/active?point=34.43583,-119.82764
+
+            }
+        }).then(res => res.json).then(data => console.log(data));
+*/
+        function aqiFromPM(pm) {
+
+            if (isNaN(pm)) return "-";
+            if (pm == undefined) return "-";
+            if (pm < 0) return pm;
+            if (pm > 1000) return "-";
+            /*      
+                  Good                              0 - 50         0.0 - 15.0         0.0 – 12.0
+            Moderate                        51 - 100           >15.0 - 40        12.1 – 35.4
+            Unhealthy for Sensitive Groups   101 – 150     >40 – 65          35.5 – 55.4
+            Unhealthy                                 151 – 200         > 65 – 150       55.5 – 150.4
+            Very Unhealthy                    201 – 300 > 150 – 250     150.5 – 250.4
+            Hazardous                                 301 – 400         > 250 – 350     250.5 – 350.4
+            Hazardous                                 401 – 500         > 350 – 500     350.5 – 500
+            */
+            if (pm > 350.5) {
+                return calcAQI(pm, 500, 401, 500, 350.5);
+            } else if (pm > 250.5) {
+                return calcAQI(pm, 400, 301, 350.4, 250.5);
+            } else if (pm > 150.5) {
+                return calcAQI(pm, 300, 201, 250.4, 150.5);
+            } else if (pm > 55.5) {
+                return calcAQI(pm, 200, 151, 150.4, 55.5);
+            } else if (pm > 35.5) {
+                return calcAQI(pm, 150, 101, 55.4, 35.5);
+            } else if (pm > 12.1) {
+                return calcAQI(pm, 100, 51, 35.4, 12.1);
+            } else if (pm >= 0) {
+                return calcAQI(pm, 50, 0, 12, 0);
+            } else {
+                return undefined;
+            }
+
+        }
+
+        function bplFromPM(pm) {
+            if (isNaN(pm)) return 0;
+            if (pm == undefined) return 0;
+            if (pm < 0) return 0;
+            /*      
+                  Good                              0 - 50         0.0 - 15.0         0.0 – 12.0
+            Moderate                        51 - 100           >15.0 - 40        12.1 – 35.4
+            Unhealthy for Sensitive Groups   101 – 150     >40 – 65          35.5 – 55.4
+            Unhealthy                                 151 – 200         > 65 – 150       55.5 – 150.4
+            Very Unhealthy                    201 – 300 > 150 – 250     150.5 – 250.4
+            Hazardous                                 301 – 400         > 250 – 350     250.5 – 350.4
+            Hazardous                                 401 – 500         > 350 – 500     350.5 – 500
+            */
+            if (pm > 350.5) {
+                return 401;
+            } else if (pm > 250.5) {
+                return 301;
+            } else if (pm > 150.5) {
+                return 201;
+            } else if (pm > 55.5) {
+                return 151;
+            } else if (pm > 35.5) {
+                return 101;
+            } else if (pm > 12.1) {
+                return 51;
+            } else if (pm >= 0) {
+                return 0;
+            } else {
+                return 0;
+            }
+
+        }
+
+        function bphFromPM(pm) {
+            //return 0;
+            if (isNaN(pm)) return 0;
+            if (pm == undefined) return 0;
+            if (pm < 0) return 0;
+            /*      
+                  Good                              0 - 50         0.0 - 15.0         0.0 – 12.0
+            Moderate                        51 - 100           >15.0 - 40        12.1 – 35.4
+            Unhealthy for Sensitive Groups   101 – 150     >40 – 65          35.5 – 55.4
+            Unhealthy                                 151 – 200         > 65 – 150       55.5 – 150.4
+            Very Unhealthy                    201 – 300 > 150 – 250     150.5 – 250.4
+            Hazardous                                 301 – 400         > 250 – 350     250.5 – 350.4
+            Hazardous                                 401 – 500         > 350 – 500     350.5 – 500
+            */
+            if (pm > 350.5) {
+                return 500;
+            } else if (pm > 250.5) {
+                return 500;
+            } else if (pm > 150.5) {
+                return 300;
+            } else if (pm > 55.5) {
+                return 200;
+            } else if (pm > 35.5) {
+                return 150;
+            } else if (pm > 12.1) {
+                return 100;
+            } else if (pm >= 0) {
+                return 50;
+            } else {
+                return 0;
+            }
+
+        }
+
+        function calcAQI(Cp, Ih, Il, BPh, BPl) {
+
+            var a = (Ih - Il);
+            var b = (BPh - BPl);
+            var c = (Cp - BPl);
+            return Math.round((a / b) * c + Il);
+
+        }
+
+
+        function getAQIDescription(aqi) {
+            if (aqi >= 401) {
+                return 'Hazardous';
+            } else if (aqi >= 301) {
+                return 'Hazardous';
+            } else if (aqi >= 201) {
+                return 'Very Unhealthy';
+            } else if (aqi >= 151) {
+                return 'Unhealthy';
+            } else if (aqi >= 101) {
+                return 'Unhealthy for Sensitive Groups';
+            } else if (aqi >= 51) {
+                return 'Moderate';
+            } else if (aqi >= 0) {
+                return 'Good';
+            } else {
+                return undefined;
+            }
+        }
+
+        function getAQIMessage(aqi) {
+            if (aqi >= 401) {
+                return `bolder;'>Message: >401: Health alert: everyone may experience<br>more serious health effects`;
+            } else if (aqi >= 301) {
+                return `bolder;'>Message: 301-400: Health alert: everyone<br>may experience more serious health effects`;
+            } else if (aqi >= 201) {
+                return `bolder;'>Message: 201-300: Health warnings of emergency conditions.<br>The entire population is more likely to be affected. `;
+            } else if (aqi >= 151) {
+                return `bold;'>Message: 151-200: Everyone may begin to experience health effects; members <br>of sensitive groups may experience more serious health effects.`;
+            } else if (aqi >= 101) {
+                return `normal;'>Message: 101-150: Members of sensitive groups may experience health effects.<br>The general public is not likely to be affected.`;
+            } else if (aqi >= 51) {
+                return `normal;'>Message: 51-100: Air quality is acceptable; however, for some<br>pollutants there may be a moderate health concern for a very small number of<br>people who are unusually sensitive to air pollution.`;
+            } else if (aqi >= 0) {
+                return `normal;'>Message: 0-50: Air quality is considered satisfactory, and air<br>pollution poses little or no risk`;
+            } else {
+                return undefined;
+            }
+        }
+    </script>
+    <div id="aquality">
+        <h1>Air Quality</h1>
+        <p id='aqdisplay'></p>
+    </div>
+    <br>
+    <div id='notice'>
+        <h1>Notices</h1>
+        <p id='noticelist'>We are currently working on adding this function. Sit tight!</p>
+    </div>
+    <div id="about">
+        <br>
+        <br>
+        <h2>About</h2>
+        <br>
+        <br>
+        <p>We are not responsible for damage or harm to yourself, another person, an animal, or an object, from this website. We are not liable for anything involving this website, and we are especially not liable for anything <em>not</em> involving this
+            website.
+        </p>
+    </div>
+    <div id="navbar">
+        <ul>
+            <li><a href="#top">Home</a></li>
+            <li><a href="#gweather">General Weather</a></li>
+            <li><a href="#aquality">Air Quality</a></li>
+            <li style="float:right"><a class="active" href="#notice">Notices</a></li>
+        </ul>
+    </div>
+
+</body>
+
+</html>
